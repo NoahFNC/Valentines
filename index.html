@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Love ❤️</title>
-    <script src="https://player.vimeo.com/api/player.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
 
@@ -15,6 +14,7 @@
             width: 100%;
             overflow-x: hidden;
             font-family: 'Poppins', sans-serif;
+            background: #4a00e0; /* Fallback */
         }
 
         body {
@@ -38,20 +38,21 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 25px;
-            padding: 20px; /* Reduced padding for more video space */
+            padding: 25px;
             box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
             text-align: center;
             z-index: 10;
-            width: 92%; /* Wider on mobile */
-            max-width: 600px; /* Increased from 450px for a bigger desktop view */
+            width: 85%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
             color: white;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 2rem;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
@@ -64,34 +65,36 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
         }
 
         .btn-yes { background-color: #ffffff; color: #ff0055; }
         .btn-no { background-color: rgba(255, 0, 0, 0.5); color: white; }
+        .btn-maybe { background-color: rgba(255, 255, 255, 0.2); color: white; border: 1px solid white; }
 
-        /* ENLARGED VIDEO CONTAINER */
-        .vimeo-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 15px;
+        video { 
+            width: 100%; 
+            border-radius: 15px; 
             margin-top: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255,255,255,0.5);
         }
 
-        .vimeo-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+        .image-container {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
         }
 
-        .image-container { display: flex; gap: 10px; margin: 15px 0; justify-content: center; }
-        .img-placeholder { width: 48%; aspect-ratio: 1/1; background: rgba(255,255,255,0.2); border-radius: 12px; object-fit: cover; border: 2px solid white; }
-        
+        .img-placeholder {
+            width: 48%;
+            aspect-ratio: 1/1;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
         .highlight-box {
             background: rgba(0, 0, 0, 0.2);
             padding: 12px;
@@ -104,7 +107,13 @@
         .user-tag { color: #00ffd5; font-size: 1.3rem; display: block; font-weight: bold; }
         .gift-card { color: #ffe600; font-size: 1.4rem; letter-spacing: 1px; font-weight: bold; }
 
-        .heart { position: absolute; bottom: -50px; animation: floatUp linear forwards; z-index: 1; pointer-events: none; }
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp linear forwards;
+            z-index: 1;
+            pointer-events: none;
+        }
 
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -121,6 +130,7 @@
         <div class="buttons">
             <button class="btn-yes" onclick="showPage('page2')">Yes ❤️</button>
             <button class="btn-no" onclick="alert('Wrong answer! 😜')">No</button>
+            <button class="btn-maybe" onclick="alert('Think harder! ❤️')">Maybe</button>
         </div>
     </div>
 
@@ -134,17 +144,17 @@
 
     <div class="card hidden" id="page3">
         <h1>I love you too! 🥰</h1>
-        <div class="vimeo-container">
-            <iframe id="vimeoPlayer" src="https://player.vimeo.com/video/1164977166?autoplay=1&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        </div>
+        <video id="myVideo" controls playsinline preload="auto" onended="showPage('page4')">
+            <source src="myvideo.mp4" type="video/mp4">
+        </video>
         <p style="color:white; font-size: 0.8rem; margin-top:10px;">Watch until the end...</p>
     </div>
 
     <div class="card hidden" id="page4">
         <h1 style="font-size: 1.6rem;">Happy Valentine's Day!</h1>
         <div class="image-container">
-            <img src="go_to_pic_of_me.png" class="img-placeholder" alt="Us 1">
-            <img src="SPOILER_IMG_1979_Original.png" class="img-placeholder" alt="Us 2">
+            <img src="photo1.jpg" class="img-placeholder" alt="Us 1">
+            <img src="photo2.jpg" class="img-placeholder" alt="Us 2">
         </div>
         <p style="color: white; font-size: 0.9rem;">I made a Roblox account for us!</p>
         <div class="highlight-box">
@@ -157,24 +167,12 @@
     </div>
 
     <script>
-        const iframe = document.querySelector('#vimeoPlayer');
-        const player = new Vimeo.Player(iframe);
-
         function showPage(pageId) {
             document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
-            
-            if(pageId === 'page3') {
-                player.play().catch(error => console.log("Autoplay blocked, user must click play."));
-            }
-            if(pageId === 'page4') {
-                setInterval(createHeart, 100);
-            }
+            if(pageId === 'page3') document.getElementById('myVideo').play();
+            if(pageId === 'page4') setInterval(createHeart, 100);
         }
-
-        player.on('ended', function() {
-            showPage('page4');
-        });
 
         function createHeart() {
             const heart = document.createElement('div');
