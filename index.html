@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4a00e0, #8e2de2, #ff0055, #ff6b6b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            z-index: 10;
+            width: 85%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .buttons { display: flex; flex-direction: column; gap: 15px; }
+
+        button {
+            padding: 15px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-yes { background-color: white; color: #ff0055; }
+        .btn-no { background-color: rgba(255, 0, 0, 0.6); color: white; }
+        .btn-maybe { background-color: rgba(128, 0, 128, 0.6); color: white; }
+
+        video { width: 100%; border-radius: 15px; margin-top: 10px; }
+
+        /* Final Page Styling */
+        .image-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .img-placeholder {
+            width: 45%;
+            aspect-ratio: 1/1;
+            background: #eee;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            color: white;
+            font-weight: bold;
+            border: 1px dashed white;
+        }
+
+        .user-tag { color: #00e5ff; font-size: 1.4rem; display: block; margin-top: 5px; }
+        .gift-card { color: #ffd700; font-size: 1.5rem; letter-spacing: 2px; }
+
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="page1">
+        <h1>Do you love me?</h1>
+        <div class="buttons">
+            <button class="btn-yes" onclick="showPage('page2')">Yes ❤️</button>
+            <button class="btn-no" onclick="alert('Try again! 😢')">No</button>
+            <button class="btn-maybe" onclick="alert('Make up your mind! 😉')">Maybe</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="page2">
+        <h1>Are you sure? 🥺</h1>
+        <div class="buttons">
+            <button class="btn-yes" onclick="showPage('page3')">Yes, I'm sure! 💖</button>
+            <button class="btn-no" onclick="showPage('page1')">No</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="page3">
+        <h1>I love you too! 🥰</h1>
+        <video id="myVideo" controls autoplay playsinline onended="showPage('page4')">
+            <source src="myvideo.mp4" type="video/mp4">
+        </video>
+        <p style="color:white; font-size: 0.8rem; margin-top:10px;">(Wait for video to finish for a surprise!)</p>
+    </div>
+
+    <div class="card hidden" id="page4">
+        <h1 style="font-size: 1.8rem;">Happy Valentine's Day Baby!</h1>
+        
+        <div class="image-container">
+            <img src="go_to_pic_of_me.png" class="img-placeholder" alt="Photo 1">
+            <img src="SPOILER_IMG_1979_Original.png" class="img-placeholder" alt="Photo 2">
+        </div>
+
+        <p style="color: white;">I made a Roblox account so we can play together!</p>
+        
+        <div class="highlight-box">
+            My Username:
+            <span class="user-tag">NoahFNC5</span>
+        </div>
+
+        <p style="color: white; margin-top: 20px;">Oh and one more thing... Here some robux my love:</p>
+        
+        <div class="highlight-box">
+            CODE:
+            <span class="gift-card">XXXX-XXXX-XXXX: u have to play with me to get it first</span> </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            if(pageId === 'page4') {
+                setInterval(createHeart, 100); // Faster hearts for the finish!
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const hearts = ['❤️', '💜', '💖', '💗', '💓'];
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's'; 
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 7000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
