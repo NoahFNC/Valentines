@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Love ❤️</title>
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
 
@@ -11,6 +12,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            width: 100%;
             overflow-x: hidden;
             font-family: 'Poppins', sans-serif;
         }
@@ -33,83 +35,76 @@
 
         .card {
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 25px;
+            padding: 20px; /* Reduced padding for more video space */
+            box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             text-align: center;
             z-index: 10;
-            width: 85%;
-            max-width: 450px;
-            max-height: 90vh;
-            overflow-y: auto;
+            width: 92%; /* Wider on mobile */
+            max-width: 600px; /* Increased from 450px for a bigger desktop view */
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
             color: white;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
-        .buttons { display: flex; flex-direction: column; gap: 15px; }
+        .buttons { display: flex; flex-direction: column; gap: 12px; }
 
         button {
-            padding: 15px;
+            padding: 16px;
             font-size: 1.1rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s;
             font-weight: 600;
         }
 
-        .btn-yes { background-color: white; color: #ff0055; }
-        .btn-no { background-color: rgba(255, 0, 0, 0.6); color: white; }
-        .btn-maybe { background-color: rgba(128, 0, 128, 0.6); color: white; }
+        .btn-yes { background-color: #ffffff; color: #ff0055; }
+        .btn-no { background-color: rgba(255, 0, 0, 0.5); color: white; }
 
-        video { width: 100%; border-radius: 15px; margin-top: 10px; }
-
-        /* Final Page Styling */
-        .image-container {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            justify-content: center;
+        /* ENLARGED VIDEO CONTAINER */
+        .vimeo-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-top: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
         }
 
-        .img-placeholder {
-            width: 45%;
-            aspect-ratio: 1/1;
-            background: #eee;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 2px solid white;
+        .vimeo-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
+        .image-container { display: flex; gap: 10px; margin: 15px 0; justify-content: center; }
+        .img-placeholder { width: 48%; aspect-ratio: 1/1; background: rgba(255,255,255,0.2); border-radius: 12px; object-fit: cover; border: 2px solid white; }
+        
         .highlight-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 12px;
             margin: 10px 0;
             color: white;
-            font-weight: bold;
-            border: 1px dashed white;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .user-tag { color: #00e5ff; font-size: 1.4rem; display: block; margin-top: 5px; }
-        .gift-card { color: #ffd700; font-size: 1.5rem; letter-spacing: 2px; }
+        .user-tag { color: #00ffd5; font-size: 1.3rem; display: block; font-weight: bold; }
+        .gift-card { color: #ffe600; font-size: 1.4rem; letter-spacing: 1px; font-weight: bold; }
 
-        /* Heart Animation */
-        .heart {
-            position: absolute;
-            bottom: -50px;
-            animation: floatUp linear forwards;
-            z-index: 1;
-        }
+        .heart { position: absolute; bottom: -50px; animation: floatUp linear forwards; z-index: 1; pointer-events: none; }
 
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -125,8 +120,7 @@
         <h1>Do you love me?</h1>
         <div class="buttons">
             <button class="btn-yes" onclick="showPage('page2')">Yes ❤️</button>
-            <button class="btn-no" onclick="alert('Try again! 😢')">No</button>
-            <button class="btn-maybe" onclick="alert('Make up your mind! 😉')">Maybe</button>
+            <button class="btn-no" onclick="alert('Wrong answer! 😜')">No</button>
         </div>
     </div>
 
@@ -140,56 +134,60 @@
 
     <div class="card hidden" id="page3">
         <h1>I love you too! 🥰</h1>
-        <video id="myVideo" controls autoplay playsinline onended="showPage('page4')">
-            <source src="myvideo.mp4" type="video/mp4">
-        </video>
-        <p style="color:white; font-size: 0.8rem; margin-top:10px;">(Wait for video to finish for a surprise!)</p>
+        <div class="vimeo-container">
+            <iframe id="vimeoPlayer" src="https://player.vimeo.com/video/1164977166?autoplay=1&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+        <p style="color:white; font-size: 0.8rem; margin-top:10px;">Watch until the end...</p>
     </div>
 
     <div class="card hidden" id="page4">
-        <h1 style="font-size: 1.8rem;">Happy Valentine's Day Baby!</h1>
-        
+        <h1 style="font-size: 1.6rem;">Happy Valentine's Day!</h1>
         <div class="image-container">
-            <img src="go_to_pic_of_me.png" class="img-placeholder" alt="Photo 1">
-            <img src="SPOILER_IMG_1979_Original.png" class="img-placeholder" alt="Photo 2">
+            <img src="go_to_pic_of_me.png" class="img-placeholder" alt="Us 1">
+            <img src="SPOILER_IMG_1979_Original.png" class="img-placeholder" alt="Us 2">
         </div>
-
-        <p style="color: white;">I made a Roblox account so we can play together!</p>
-        
+        <p style="color: white; font-size: 0.9rem;">I made a Roblox account for us!</p>
         <div class="highlight-box">
-            My Username:
-            <span class="user-tag">NoahFNC5</span>
+            User: <span class="user-tag">NoahFNC5</span>
         </div>
-
-        <p style="color: white; margin-top: 20px;">Oh and one more thing... Here some robux my love:</p>
-        
+        <p style="color: white; font-size: 0.9rem;">And some Robux for my love:</p>
         <div class="highlight-box">
-            CODE:
-            <span class="gift-card">XXXX-XXXX-XXXX: u have to play with me to get it first</span> </div>
+            <span class="gift-card">XXXX-XXXX-XXXX</span>
+        </div>
     </div>
 
     <script>
+        const iframe = document.querySelector('#vimeoPlayer');
+        const player = new Vimeo.Player(iframe);
+
         function showPage(pageId) {
-            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+            document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
             
+            if(pageId === 'page3') {
+                player.play().catch(error => console.log("Autoplay blocked, user must click play."));
+            }
             if(pageId === 'page4') {
-                setInterval(createHeart, 100); // Faster hearts for the finish!
+                setInterval(createHeart, 100);
             }
         }
+
+        player.on('ended', function() {
+            showPage('page4');
+        });
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            const hearts = ['❤️', '💜', '💖', '💗', '💓'];
+            const hearts = ['❤️', '💜', '💖', '💗'];
             heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = Math.random() * 20 + 20 + 'px';
             heart.style.animationDuration = Math.random() * 3 + 4 + 's'; 
             document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 7000);
+            setTimeout(() => { heart.remove(); }, 6000);
         }
-        setInterval(createHeart, 300);
+        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
